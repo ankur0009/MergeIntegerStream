@@ -13,6 +13,6 @@ Memory Usage Notes
 - When a value from the merged list is generated, it's spot is marked as empty and reused for the next input value.
 
 Other Notes
-- Duplicate values from the streams are NOT ingored.
+- Duplicate values from the streams are NOT ignored.
 
 - For a single instance of the application, if you use different pairs of streams, the data is merged for all the streams. In other words, we don't provide the lowest number per stream pair.
