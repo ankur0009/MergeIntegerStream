@@ -2,7 +2,7 @@
 Merges two integer streams and returns the lowest number from the merged list. For each invocation, the input streams are invoked to get two integers, and the lowest number from the merged cumulative list is returned.
 
 Usage Notes
-http://localhost:<port>/quiz/merge?stream1=<stream_name_1>&stream2=<stream_name_2>
+- http://localhost:<port>/quiz/merge?stream1=<stream_name_1>&stream2=<stream_name_2>
 
 Time complexity Notes
 - The values from the input streams are merged into a single list. For every invocation the list is searched for the lowest value and the value is then removed from the list. The time complexity is O(1) for insertion, and O(n) for search.
