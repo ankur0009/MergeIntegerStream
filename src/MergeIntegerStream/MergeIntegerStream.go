@@ -13,7 +13,7 @@ const pelotonReadStreamURL = "https://api.pelotoncycle.com/quiz/next/"
 
 // Array that stores all numbers recieved from the Peloton integer streams. 
 // Numbers that are generated (output) are removed from the array.
-var allInputNumbers = make([]int, 0)
+var mergedInputNumbers = make([]int, 0)
 
 // Index for empty spots in the "allNumbers" array. 
 // An empty spot is created, when a number is generated "output". 
@@ -51,7 +51,7 @@ func handleHTTPRequest(w http.ResponseWriter, r *http.Request) {
     	current2, last2, stream2 := readStream(Stream2) 
     	fmt.Printf("LOG:Current:%d, last%d, Stream:%s\n", current2, last2, stream2)
     	
-    	// Appends the current number(s) from each stream to "allInputNumbers".
+    	// Appends the current number(s) from each stream to "mergedInputNumbers".
     	// Note: The last number is ignored, size it is zero for the first request
     	//       and subseqeuntly has already been appended by the previous request.
     	// IMP NOTE: If you use different stream names for subsequent requests, the data
@@ -71,26 +71,24 @@ func handleHTTPRequest(w http.ResponseWriter, r *http.Request) {
     }
 }
 
+// Adds the number to an empty spot in "mergedInputNumbers", otherwise appends it to the end of the merged list.
 func appendNumber(number int) {
 	if(emptySpotIndex != -1) {
-		allInputNumbers[emptySpotIndex] = number;
+		mergedInputNumbers[emptySpotIndex] = number;
 		emptySpotIndex = -1
 	} else {
-		allInputNumbers = append(allInputNumbers, number)
+		mergedInputNumbers = append(mergedInputNumbers, number)
 	}
-	
-	for _, v := range allInputNumbers {
-		fmt.Printf("%d,",v)
-	}
-	
-	fmt.Printf("\n")
 }
 
+// Returns the lowest number from the "mergedInputNumbers" and marks the index of return number as the emptySpotIndex.
 func lowestNumber () (lowest int) {
-	lowest = allInputNumbers[0]
+	// Initializes the first number as lowest.
+	lowest = mergedInputNumbers[0]
 	emptySpotIndex = 0;
 	
-	for i, v := range allInputNumbers {
+	// Iterates throught the list to find the lowset number.
+	for i, v := range mergedInputNumbers {
 		if(v < lowest) {
 			lowest = v
 			emptySpotIndex = i;
