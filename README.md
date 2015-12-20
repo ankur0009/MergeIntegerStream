@@ -1,5 +1,5 @@
 # MergeIntegerStream
-Merge two integer streams.
+Merges two integer streams and returns the lowest number from the merged list. For each invocation, the input streams are invoked to get two integers, and the lowest number from the merged cumulative list is returned.
 
 Usage Notes
 http://localhost:<port>/quiz/merge?stream1=<stream_name_1>&stream2=<stream_name_2>
